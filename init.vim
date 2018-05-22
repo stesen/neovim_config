@@ -80,6 +80,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vivien/vim-linux-coding-style'
 Plug 'compnerd/arm64asm-vim'
 Plug 'terryma/vim-expand-region'
+Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 let g:plug_threads=3
@@ -302,3 +304,15 @@ nnoremap <F4> :UndotreeToggle<cr>
 "" arm64asm
 autocmd BufNewFile,Bufread *.S set ft=arm64asm
 autocmd BufNewFile,Bufread *.s set ft=arm64asm
+
+"" CompleteParameter
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+
+"" YCM
+let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
+let g:ycm_python_binary_path = '/usr/bin/python3'
