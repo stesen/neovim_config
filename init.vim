@@ -1,3 +1,4 @@
+" {{{ plugins
 call plug#begin()
 Plug 'plasticboy/vim-markdown'
 Plug 'wsdjeg/GitHub.vim'
@@ -48,7 +49,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-lookup'
 Plug 'mileszs/ack.vim'
 Plug 'mmalecki/vim-node.js'
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'othree/es.next.syntax.vim'
@@ -69,24 +70,28 @@ Plug 'Yggdroot/LeaderF'
 Plug 'yonchu/accelerated-smooth-scroll'
 Plug 'kien/tabman.vim'
 Plug 'mkitt/tabline.vim'
+Plug 'terryma/vim-expand-region'
 "Plug 'w0rp/ale'
-Plug 'Yggdroot/indentLine', { 'for': 'go' }
+Plug 'Yggdroot/indentLine', { 'for': 'python' }
 """""""""""""""" theme
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
 Plug 'vivien/vim-linux-coding-style'
 Plug 'compnerd/arm64asm-vim'
-Plug 'terryma/vim-expand-region'
+
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-sleuth'
 call plug#end()
 
 let g:plug_threads=3
+" }}}
 
-"" Basic
+" {{{ Basic
 set fileencodings=utf8,gb2312,gbk,gb18030
 set autoread
 set incsearch
@@ -109,6 +114,7 @@ set noautochdir
 set background=dark
 set nu
 set colorcolumn&
+set cursorline
 set nowb
 colorscheme OceanicNext
 "colorscheme onedark
@@ -116,8 +122,72 @@ colorscheme OceanicNext
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
+" }}}
 
-"" maps
+" {{{ autocmd
+autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
+			\   q :cclose<cr>:lclose<cr>
+autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
+			\   bd|
+			\   q | endif
+autocmd FileType jsp call JspFileTypeInit()
+autocmd FileType html,css,scss,sass,less,javascript,jsp,vue,eex EmmetInstall
+autocmd BufRead,BufNewFile *.pp setfiletype puppet
+autocmd BufEnter,WinEnter,InsertLeave * setl cursorline
+autocmd BufLeave,WinLeave,InsertEnter * setl nocursorline
+autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
+autocmd BufNewFile,BufEnter * set cpoptions+=d " NOTE: ctags find the tags file from the current path instead of the path of currect file
+autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
+autocmd BufNewFile,BufRead *.avs set syntax=avs " for avs syntax file.
+autocmd FileType text setlocal textwidth=78 " for all text files set 'textwidth' to 78 characters.
+autocmd FileType c,cpp,cs,swig set nomodeline " this will avoid bug in my project with namespace ex, the vim will tree ex:: as modeline.
+autocmd FileType c,cpp,java,javascript set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://
+autocmd FileType cs set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f:///,f://
+autocmd FileType vim set comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",f:\"
+autocmd FileType lua set comments=f:--
+autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType python,coffee call s:check_if_expand_tab()
+
+fu! s:check_if_expand_tab() abort
+    let has_noexpandtab = search('^\t','wn')
+    let has_expandtab = search('^    ','wn')
+    if has_noexpandtab && has_expandtab
+        let idx = inputlist ( ['ERROR: current file exists both expand and noexpand TAB, python can only use one of these two mode in one file.\nSelect Tab Expand Type:',
+                    \ '1. expand (tab=space, recommended)',
+                    \ '2. noexpand (tab=\t, currently have risk)',
+                    \ '3. do nothing (I will handle it by myself)'])
+        let tab_space = printf('%*s',&tabstop,'')
+        if idx == 1
+            let has_noexpandtab = 0
+            let has_expandtab = 1
+            silent exec '%s/\t/' . tab_space . '/g'
+        elseif idx == 2
+            let has_noexpandtab = 1
+            let has_expandtab = 0
+            silent exec '%s/' . tab_space . '/\t/g'
+        else
+            return
+        endif
+    endif
+    if has_noexpandtab == 1 && has_expandtab == 0
+        echomsg 'substitute space to TAB...'
+        set noexpandtab
+        echomsg 'done!'
+    elseif has_noexpandtab == 0 && has_expandtab == 1
+        echomsg 'substitute TAB to space...'
+        set expandtab
+        echomsg 'done!'
+    else
+        " it may be a new file
+        " we use original vim setting
+    endif
+endf
+" }}}
+
+" {{{ maps
 nnoremap <f1> :BufExplorer<CR>
 noremap ,e :e <C-r>=expand("%:p:h") . "/"<cr>
 map gcc <ESC>:wa!<cr>:!clear && gcc -Wall % -o %< && ./%< <cr>
@@ -166,9 +236,32 @@ nnoremap <silent><Up> gk
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+" }}}
 
+" {{{ manual indent
+function! Tab4() range
+    set tabstop=4
+    set expandtab
+    set softtabstop=4
+    set shiftwidth=4
+    setlocal cindent
+    setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+endfunction
+function! Tab2() range
+    set tabstop=2
+    set expandtab
+    set softtabstop=2
+    set shiftwidth=2
+    setlocal cindent
+    setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+endfunction
 
+nnoremap <A-t> :call Tab2()<CR>
+nnoremap <A-f> :call Tab4()<CR>
+nnoremap <A-k> :LinuxCodingStyle<CR>
 
+"}}}
+" {{{ cscope
 let g:LookupFile_TagExpr = '"cscope.files"'
 if has("cscope")
     set csprg=cscope
@@ -184,7 +277,9 @@ if has("cscope")
     endif
     set csverb
 endif
+" }}}
 
+" {{{ VisualSearch
 function! VisualSearch(direction) range
         let l:saved_reg = @"
         execute "normal! vgvy"
@@ -204,37 +299,44 @@ endfunction
 "useful
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
+" }}}
 
+" {{{ Gui insert
 if has("gui_running")
     map  <silent>  <S-Insert>  "+p
     imap <silent>  <S-Insert>  <Esc>"+pa
 endif
+" }}}
 
+" {{{ fzf
 let $FZF_DEFAULT_COMMAND = 'ag --nofollow --nocolor --nogroup --hidden --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" --ignore "**/*.pyc" --ignore "**/*.png" --ignore ".repo" -g ""'
 
 command! FZFgit call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '40%'})
 command! FZFc call fzf#run({'source': 'cat all_c.txt', 'sink': 'e', 'down': '40%'})
 command! FZFjava call fzf#run({'source': 'cat all_java.txt', 'sink': 'e', 'down': '40%'})
 command! FZFmk call fzf#run({'source': 'cat all_mk.txt', 'sink': 'e', 'down': '40%'})
+" }}}
 
-"" deoplete
+" {{{ deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#auto_complete_delay = 150
 
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu/'
+" }}}
 
-"" neomake
+" {{{ neomake
 "let g:neomake_vim_enabled_makers = []
 "let g:neomake_cpp_enable_makers = ['clang']
 "call neomake#configure#automake('w')
 "call neomake#configure#automake('nw', 750)
 "call neomake#configure#automake('rw', 1000)
-call neomake#configure#automake('nrwi', 500)
+"call neomake#configure#automake('nrwi', 500)
 
-autocmd! BufWritePost,BufEnter * Neomake
+"autocmd! BufWritePost,BufEnter * Neomake
+" }}}
 
-"" airline
+" {{{ airline
 "--------------------------------------------------
 " let g:airline_left_sep = '▶'
 " let g:airline_right_sep = '◀'
@@ -262,19 +364,22 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
 let g:airline_theme='dark_minimal'
+" }}}
 
-"" tagbar
+" {{{ tagbar
 let g:tagbar_left=1
 noremap <silent> <F2> :silent TagbarToggle<CR>
+" }}}
 
-"" bookmark
+" {{{ bookmark
 highlight BookmarkSign ctermbg=NONE ctermfg=160
 highlight BookmarkLine ctermbg=194 ctermfg=NONE
 let g:bookmark_sign = '♥'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_auto_save = 1
+" }}}
 
-"" NERDTree
+" {{{ NERDTree
 map <F3> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
@@ -293,26 +398,36 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 "autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
 nmap <Leader>nd :NERDTreeFocus<cr>R<c-w><c-p>
+" }}}
 
-"" YangRing
+" {{{ YangRing
 nmap <Leader>y :YRShow<CR>
 let g:yankring_clipboard_monitor=0
+" }}}
 
-"" undotree
+" {{{ undotree
 nnoremap <F4> :UndotreeToggle<cr>
+" }}}
 
-"" arm64asm
+" {{{ arm64asm
 autocmd BufNewFile,Bufread *.S set ft=arm64asm
 autocmd BufNewFile,Bufread *.s set ft=arm64asm
+" }}}
 
-"" CompleteParameter
+" {{{ CompleteParameter
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
 smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+" }}}
 
 
-"" YCM
+" {{{ ycm
 let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
 let g:ycm_python_binary_path = '/usr/bin/python3'
+highlight YcmWarningLine guibg=#ffffff
+highlight YcmWarningSign guibg=#ffffff
+highlight YcmWarningSection guibg=#ffffff
+nnoremap <A-f> :YcmCompleter FixIt<CR>
+" }}}
