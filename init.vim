@@ -131,7 +131,6 @@ autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 			\   bd|
 			\   q | endif
 autocmd FileType jsp call JspFileTypeInit()
-autocmd FileType html,css,scss,sass,less,javascript,jsp,vue,eex EmmetInstall
 autocmd BufRead,BufNewFile *.pp setfiletype puppet
 autocmd BufEnter,WinEnter,InsertLeave * setl cursorline
 autocmd BufLeave,WinLeave,InsertEnter * setl nocursorline
@@ -259,8 +258,8 @@ endfunction
 nnoremap <A-t> :call Tab2()<CR>
 nnoremap <A-f> :call Tab4()<CR>
 nnoremap <A-k> :LinuxCodingStyle<CR>
-
 "}}}
+
 " {{{ cscope
 let g:LookupFile_TagExpr = '"cscope.files"'
 if has("cscope")
