@@ -433,4 +433,5 @@ nnoremap <A-f> :YcmCompleter FixIt<CR>
 
 " {{{ yankring
 let g:yankring_history_file = '.yankring_history'
+nnoremap <silent> <A-y> :YRShow<CR>
 " }}}
