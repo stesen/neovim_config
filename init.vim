@@ -422,7 +422,6 @@ smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " }}}
 
-
 " {{{ ycm
 let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
 let g:ycm_python_binary_path = '/usr/bin/python3'
@@ -430,4 +429,8 @@ highlight YcmWarningLine guibg=#ffffff
 highlight YcmWarningSign guibg=#ffffff
 highlight YcmWarningSection guibg=#ffffff
 nnoremap <A-f> :YcmCompleter FixIt<CR>
+" }}}
+
+" {{{ yankring
+let g:yankring_history_file = '.yankring_history'
 " }}}
