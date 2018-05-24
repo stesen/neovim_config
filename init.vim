@@ -6,6 +6,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/ctags.vim'
 Plug 'vim-scripts/grep.vim'
 Plug 'lambdalisue/vim-gita'
+Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 "Plug 'Shougo/neocomplete'
