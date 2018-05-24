@@ -120,6 +120,8 @@ set nowb
 colorscheme OceanicNext
 "colorscheme onedark
 
+"hi vertsplit ctermfg=grey
+
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
@@ -369,6 +371,33 @@ let g:airline_theme='dark_minimal'
 " {{{ tagbar
 let g:tagbar_left=1
 noremap <silent> <F2> :silent TagbarToggle<CR>
+let g:tagbar_type_arm64asm = {
+    \ 'ctagsbin'  : 'ctags',
+    \ 'ctagsargs' : '-f- --format=2 --excmd=pattern --fields=nksSa --extra= --sort=no --language-force=asm',
+    \ 'kinds' : [
+        \ 'm:macros:0:1',
+        \ 't:types:0:1',
+        \ 'd:defines:0:1',
+        \ 'l:labels:0:1'
+    \ ]
+    \}
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+    \}
+let g:tagbar_type_make = {
+            \ 'kinds':[
+                \ 'm:macros',
+                \ 't:targets'
+            \ ]
+            \}
+
 " }}}
 
 " {{{ bookmark
