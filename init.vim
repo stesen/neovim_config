@@ -4,6 +4,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'wsdjeg/GitHub.vim'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/ctags.vim'
+Plug 'vim-scripts/cscope.vim'
 Plug 'vim-scripts/grep.vim'
 Plug 'lambdalisue/vim-gita'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
@@ -26,13 +27,11 @@ Plug 'benizi/vim-automkdir'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'drmikehenry/vim-headerguard'
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'godlygeek/tabular'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'hewes/unite-gtags'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-fugitive'
@@ -60,9 +59,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/ctags.vim'
 Plug 'vim-scripts/SearchComplete'
-Plug 'vim-scripts/taglist.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'voronkovich/ctrlp-nerdtree.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -120,10 +117,6 @@ colorscheme OceanicNext
 "colorscheme onedark
 
 "hi vertsplit ctermfg=grey
-
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
 " }}}
 
 " {{{ autocmd
@@ -261,6 +254,10 @@ nnoremap <A-t> :call Tab2()<CR>
 nnoremap <A-f> :call Tab4()<CR>
 nnoremap <A-k> :LinuxCodingStyle<CR>
 "}}}
+
+" {{{ ctags
+set tags=./tags;,tags
+" }}}
 
 " {{{ cscope
 let g:LookupFile_TagExpr = '"cscope.files"'
