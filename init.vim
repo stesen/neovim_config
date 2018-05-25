@@ -78,7 +78,7 @@ Plug 'Yggdroot/indentLine', { 'for': 'python' }
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'vivien/vim-linux-coding-style'
@@ -368,7 +368,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_theme='dark_minimal'
 " }}}
 
-" {{{ tagbar
+" {{{ tagbar{{{
 let g:tagbar_left=1
 noremap <silent> <F2> :silent TagbarToggle<CR>
 let g:tagbar_type_arm64asm = {
@@ -432,6 +432,7 @@ nmap <Leader>nd :NERDTreeFocus<cr>R<c-w><c-p>
 " {{{ YangRing
 nmap <Leader>y :YRShow<CR>
 let g:yankring_clipboard_monitor=0
+let g:yankring_history_file = '.yankring_history'
 " }}}
 
 " {{{ undotree
@@ -458,9 +459,4 @@ highlight YcmWarningLine guibg=#ffffff
 highlight YcmWarningSign guibg=#ffffff
 highlight YcmWarningSection guibg=#ffffff
 nnoremap <A-f> :YcmCompleter FixIt<CR>
-" }}}
-
-" {{{ yankring
-let g:yankring_history_file = '.yankring_history'
-nnoremap <silent> <A-y> :YRShow<CR>
 " }}}
