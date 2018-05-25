@@ -15,7 +15,6 @@ Plug 'vim-scripts/BlockComment.vim'
 Plug 'lzap/vim-selinux'
 Plug 'vim-scripts/bash-support.vim'
 Plug 'vim-scripts/linuxsty.vim'
-Plug 'drmikehenry/vim-headerguard'
 Plug 'vim-scripts/Mark--Karkat'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-scripts/SearchComplete'
@@ -459,4 +458,13 @@ highlight YcmWarningLine guibg=#ffffff
 highlight YcmWarningSign guibg=#ffffff
 highlight YcmWarningSection guibg=#ffffff
 nnoremap <A-f> :YcmCompleter FixIt<CR>
+" }}}
+
+" {{{ incsearch'=
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
 " }}}
