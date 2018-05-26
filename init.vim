@@ -80,6 +80,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vivien/vim-linux-coding-style'
 Plug 'compnerd/arm64asm-vim'
 
+Plug 'vim-scripts/LargeFile'
+
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-sleuth'
@@ -364,7 +366,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_theme='dark_minimal'
 " }}}
 
-" {{{ tagbar{{{
+" {{{ tagbar
 let g:tagbar_left=1
 noremap <silent> <F2> :silent TagbarToggle<CR>
 let g:tagbar_type_arm64asm = {
@@ -398,7 +400,7 @@ let g:tagbar_type_make = {
 
 " {{{ bookmark
 highlight BookmarkSign ctermbg=NONE ctermfg=160
-highlight BookmarkLine ctermbg=194 ctermfg=NONE
+highlight BookmarkLine ctermbg=DarkBlue ctermfg=Black
 let g:bookmark_sign = '♥'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_auto_save = 1
