@@ -1,88 +1,100 @@
 " {{{ plugins
 call plug#begin()
+" language
 Plug 'plasticboy/vim-markdown'
-Plug 'wsdjeg/GitHub.vim'
+Plug 'lervag/vimtex'
+Plug 'lzap/vim-selinux'
+Plug 'mmalecki/vim-node.js'
+Plug 'compnerd/arm64asm-vim'
+Plug 'fatih/vim-go', { 'for': 'go' }
+
+Plug 'vim-scripts/bash-support.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-scripts/linuxsty.vim'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'drmikehenry/vim-headerguard'
+Plug 'Yggdroot/indentLine', { 'for': 'python' }
+Plug 'joker1007/vim-markdown-quote-syntax'
+Plug 'vivien/vim-linux-coding-style'
+
+" search
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/ctags.vim'
 Plug 'vim-scripts/cscope.vim'
+Plug 'aceofall/gtags.vim'
+
 Plug 'vim-scripts/grep.vim'
-Plug 'lambdalisue/vim-gita'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
-Plug 'jiangmiao/auto-pairs'
-Plug 'mbbill/undotree'
-"Plug 'Shougo/neocomplete'
+Plug 'wsdjeg/FlyGrep.vim'
+
 Plug 'Shougo/denite.nvim'
-Plug 'vim-scripts/BlockComment.vim'
-Plug 'lzap/vim-selinux'
-Plug 'vim-scripts/bash-support.vim'
-Plug 'vim-scripts/linuxsty.vim'
-Plug 'vim-scripts/Mark--Karkat'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/SearchComplete'
-Plug 'jlanzarotta/bufexplorer'
-Plug 'airblade/vim-gitgutter'
-"Plug 'albfan/ag.vim'
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'benizi/vim-automkdir'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'drmikehenry/vim-headerguard'
-Plug 'fatih/vim-go', { 'for': 'go' }
+
+Plug 'ozelentok/denite-gtags'
+
+Plug 'vim-scripts/SearchComplete'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/vim-asterisk'
-Plug 'hewes/unite-gtags'
-Plug 'joker1007/vim-markdown-quote-syntax'
+
+Plug 'Yggdroot/LeaderF'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-Plug 'godlygeek/tabular'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'lambdalisue/vim-gita'
-Plug 'lervag/vimtex'
-Plug 'lvht/tagbar-markdown'
-Plug 'lzap/vim-selinux'
-Plug 'majutsushi/tagbar'
-Plug 'MattesGroeger/vim-bookmarks'
+
 Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-lookup'
 Plug 'mileszs/ack.vim'
-Plug 'mmalecki/vim-node.js'
-"Plug 'neomake/neomake'
+
+" version
+Plug 'lambdalisue/vim-gita'
+Plug 'gregsexton/gitv', {'on': ['Gitv']}
+Plug 'junegunn/gv.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" misc
+Plug 'haya14busa/vim-asterisk'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mbbill/undotree'
+
+Plug 'vim-scripts/BlockComment.vim'
+Plug 'inkarkat/vim-mark'
+
+Plug 'benizi/vim-automkdir'
+
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'othree/es.next.syntax.vim'
-"Plug 'Rip-Rip/clang_complete'
+Plug 'godlygeek/tabular'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/SearchComplete'
+
+Plug 'yonchu/accelerated-smooth-scroll'
+Plug 'kien/tabman.vim'
+Plug 'terryma/vim-expand-region'
+
+Plug 'vim-scripts/LargeFile'
+
+" manage
+Plug 'jlanzarotta/bufexplorer'
+Plug 'majutsushi/tagbar'
+Plug 'lvht/tagbar-markdown'
+
 Plug 'scrooloose/nerdtree'
 Plug 'voronkovich/ctrlp-nerdtree.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Yggdroot/LeaderF'
-Plug 'yonchu/accelerated-smooth-scroll'
-Plug 'kien/tabman.vim'
-Plug 'mkitt/tabline.vim'
-Plug 'terryma/vim-expand-region'
-"Plug 'w0rp/ale'
-Plug 'Yggdroot/indentLine', { 'for': 'python' }
-"""""""""""""""" theme
+
+" theme
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'vivien/vim-linux-coding-style'
-Plug 'compnerd/arm64asm-vim'
-
-Plug 'vim-scripts/LargeFile'
-
+" complete
 Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-sleuth'
 call plug#end()
@@ -466,4 +478,12 @@ map g/ <Plug>(incsearch-stay)
 map z/ <Plug>(incsearch-fuzzy-/)
 map z? <Plug>(incsearch-fuzzy-?)
 map zg/ <Plug>(incsearch-fuzzy-stay)
+" }}}
+
+" {{{ asterrisk
+map <A-8>  <Plug>(asterisk-z*)
+map <A-3>  <Plug>(asterisk-z#)
+let g:asterisk#keeppos = 1
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
 " }}}
