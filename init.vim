@@ -291,6 +291,22 @@ if has("cscope")
 endif
 " }}}
 
+" {{{ gtags
+set cscopetag
+set cscopeprg='gtags-cscope'
+let GtagsCscope_Auto_Load = 1
+let CtagsCscope_Auto_Map = 1
+let GtagsCscope_Quiet = 1
+
+nnoremap <leader>ga :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
+nnoremap <leader>gd :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
+nnoremap <leader>gr :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
+nnoremap <leader>gg :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
+nnoremap <leader>gt :Denite -buffer-name=gtags_completion gtags_completion<cr>
+nnoremap <leader>gf :Denite -buffer-name=gtags_file gtags_file<cr>
+nnoremap <leader>gp :Denite -buffer-name=gtags_path gtags_path<cr>
+" }}}
+
 " {{{ VisualSearch
 function! VisualSearch(direction) range
         let l:saved_reg = @"
