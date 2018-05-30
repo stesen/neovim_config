@@ -59,6 +59,7 @@ Plug 'mbbill/undotree'
 
 Plug 'vim-scripts/BlockComment.vim'
 Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-ingo-library'
 
 Plug 'benizi/vim-automkdir'
 
