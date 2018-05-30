@@ -135,8 +135,8 @@ def FindCorrespondingSourceFile( filename ):
 
 
 def FlagsForFile( filename, **kwargs ):
-  if IsKernelFile(filename):
-    return None
+#  if IsKernelFile(filename):
+#    return None
 
   if IsCXXFile(filename):
     flags.append('-isystem')

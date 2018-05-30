@@ -7,6 +7,7 @@ Plug 'lzap/vim-selinux'
 Plug 'mmalecki/vim-node.js'
 Plug 'compnerd/arm64asm-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'pboettch/vim-cmake-syntax'
 
 Plug 'vim-scripts/bash-support.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -51,6 +52,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " misc
+Plug 'rkitover/vimpager'
 Plug 'haya14busa/vim-asterisk'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
@@ -160,38 +162,38 @@ autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType python,coffee call s:check_if_expand_tab()
 
 fu! s:check_if_expand_tab() abort
-    let has_noexpandtab = search('^\t','wn')
-    let has_expandtab = search('^    ','wn')
-    if has_noexpandtab && has_expandtab
-        let idx = inputlist ( ['ERROR: current file exists both expand and noexpand TAB, python can only use one of these two mode in one file.\nSelect Tab Expand Type:',
-                    \ '1. expand (tab=space, recommended)',
-                    \ '2. noexpand (tab=\t, currently have risk)',
-                    \ '3. do nothing (I will handle it by myself)'])
-        let tab_space = printf('%*s',&tabstop,'')
-        if idx == 1
-            let has_noexpandtab = 0
-            let has_expandtab = 1
-            silent exec '%s/\t/' . tab_space . '/g'
-        elseif idx == 2
-            let has_noexpandtab = 1
-            let has_expandtab = 0
-            silent exec '%s/' . tab_space . '/\t/g'
-        else
-            return
-        endif
-    endif
-    if has_noexpandtab == 1 && has_expandtab == 0
-        echomsg 'substitute space to TAB...'
-        set noexpandtab
-        echomsg 'done!'
-    elseif has_noexpandtab == 0 && has_expandtab == 1
-        echomsg 'substitute TAB to space...'
-        set expandtab
-        echomsg 'done!'
-    else
-        " it may be a new file
-        " we use original vim setting
-    endif
+	let has_noexpandtab = search('^\t','wn')
+	let has_expandtab = search('^    ','wn')
+	if has_noexpandtab && has_expandtab
+		let idx = inputlist ( ['ERROR: current file exists both expand and noexpand TAB, python can only use one of these two mode in one file.\nSelect Tab Expand Type:',
+					\ '1. expand (tab=space, recommended)',
+					\ '2. noexpand (tab=\t, currently have risk)',
+					\ '3. do nothing (I will handle it by myself)'])
+		let tab_space = printf('%*s',&tabstop,'')
+		if idx == 1
+			let has_noexpandtab = 0
+			let has_expandtab = 1
+			silent exec '%s/\t/' . tab_space . '/g'
+		elseif idx == 2
+			let has_noexpandtab = 1
+			let has_expandtab = 0
+			silent exec '%s/' . tab_space . '/\t/g'
+		else
+			return
+		endif
+	endif
+	if has_noexpandtab == 1 && has_expandtab == 0
+		echomsg 'substitute space to TAB...'
+		set noexpandtab
+		echomsg 'done!'
+	elseif has_noexpandtab == 0 && has_expandtab == 1
+		echomsg 'substitute TAB to space...'
+		set expandtab
+		echomsg 'done!'
+	else
+		" it may be a new file
+		" we use original vim setting
+	endif
 endf
 " }}}
 
@@ -248,20 +250,20 @@ cnoremap <C-f> <Right>
 
 " {{{ manual indent
 function! Tab4() range
-    set tabstop=4
-    set expandtab
-    set softtabstop=4
-    set shiftwidth=4
-    setlocal cindent
-    setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+	set tabstop=4
+	set expandtab
+	set softtabstop=4
+	set shiftwidth=4
+	setlocal cindent
+	setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
 endfunction
 function! Tab2() range
-    set tabstop=2
-    set expandtab
-    set softtabstop=2
-    set shiftwidth=2
-    setlocal cindent
-    setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+	set tabstop=2
+	set expandtab
+	set softtabstop=2
+	set shiftwidth=2
+	setlocal cindent
+	setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
 endfunction
 
 nnoremap <A-t> :call Tab2()<CR>
@@ -276,18 +278,18 @@ set tags=./tags;,tags
 " {{{ cscope
 let g:LookupFile_TagExpr = '"cscope.files"'
 if has("cscope")
-    set csprg=cscope
-    set csto=1
-    set cst
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    endif
-    if filereadable("tags_local/cscope.out")
-        cs add tags_local/cscope.out
-    endif
-    set csverb
+	set csprg=cscope
+	set csto=1
+	set cst
+	set nocsverb
+	" add any database in current directory
+	if filereadable("cscope.out")
+		cs add cscope.out
+	endif
+	if filereadable("tags_local/cscope.out")
+		cs add tags_local/cscope.out
+	endif
+	set csverb
 endif
 " }}}
 
@@ -309,17 +311,17 @@ nnoremap <leader>gp :Denite -buffer-name=gtags_path gtags_path<cr>
 
 " {{{ VisualSearch
 function! VisualSearch(direction) range
-        let l:saved_reg = @"
-        execute "normal! vgvy"
-        let l:pattern = escape(@", '\\/.*$^~[]')
-        let l:pattern = substitute(l:pattern, "\n$", "", "")
-        if a:direction == 'b'
-                execute "normal ?" . l:pattern
-        else
-                execute "normal /" . l:pattern
-        endif
-        let @/= l:pattern
-        let @" = l:saved_reg
+	let l:saved_reg = @"
+	execute "normal! vgvy"
+	let l:pattern = escape(@", '\\/.*$^~[]')
+	let l:pattern = substitute(l:pattern, "\n$", "", "")
+	if a:direction == 'b'
+		execute "normal ?" . l:pattern
+	else
+		execute "normal /" . l:pattern
+	endif
+	let @/= l:pattern
+	let @" = l:saved_reg
 endfunction
 
 "Basically you press * or # to search
@@ -331,8 +333,8 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 
 " {{{ Gui insert
 if has("gui_running")
-    map  <silent>  <S-Insert>  "+p
-    imap <silent>  <S-Insert>  <Esc>"+pa
+	map  <silent>  <S-Insert>  "+p
+	imap <silent>  <S-Insert>  <Esc>"+pa
 endif
 " }}}
 
@@ -398,31 +400,31 @@ let g:airline_theme='dark_minimal'
 let g:tagbar_left=1
 noremap <silent> <F2> :silent TagbarToggle<CR>
 let g:tagbar_type_arm64asm = {
-    \ 'ctagsbin'  : 'ctags',
-    \ 'ctagsargs' : '-f- --format=2 --excmd=pattern --fields=nksSa --extra= --sort=no --language-force=asm',
-    \ 'kinds' : [
-        \ 'm:macros:0:1',
-        \ 't:types:0:1',
-        \ 'd:defines:0:1',
-        \ 'l:labels:0:1'
-    \ ]
-    \}
+			\ 'ctagsbin'  : 'ctags',
+			\ 'ctagsargs' : '-f- --format=2 --excmd=pattern --fields=nksSa --extra= --sort=no --language-force=asm',
+			\ 'kinds' : [
+			\ 'm:macros:0:1',
+			\ 't:types:0:1',
+			\ 'd:defines:0:1',
+			\ 'l:labels:0:1'
+			\ ]
+			\}
 let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \]
-    \}
+			\ 'ctagstype': 'go',
+			\ 'kinds' : [
+			\'p:package',
+			\'f:function',
+			\'v:variables',
+			\'t:type',
+			\'c:const'
+			\]
+			\}
 let g:tagbar_type_make = {
-            \ 'kinds':[
-                \ 'm:macros',
-                \ 't:targets'
-            \ ]
-            \}
+			\ 'kinds':[
+			\ 'm:macros',
+			\ 't:targets'
+			\ ]
+			\}
 
 " }}}
 
@@ -441,16 +443,16 @@ let NERDTreeShowBookmarks=1
 let NERDTreeShowLineNumbers=1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+			\ "Modified"  : "✹",
+			\ "Staged"    : "✚",
+			\ "Untracked" : "✭",
+			\ "Renamed"   : "➜",
+			\ "Unmerged"  : "═",
+			\ "Deleted"   : "✖",
+			\ "Dirty"     : "✗",
+			\ "Clean"     : "✔︎",
+			\ "Unknown"   : "?"
+			\ }
 "autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
 nmap <Leader>nd :NERDTreeFocus<cr>R<c-w><c-p>
 " }}}
@@ -481,13 +483,25 @@ imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " {{{ ycm
 let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
 let g:ycm_python_binary_path = '/usr/bin/python3'
+
 highlight YcmWarningLine guibg=#ffffff
 highlight YcmWarningSign guibg=#ffffff
 highlight YcmWarningSection guibg=#ffffff
-nnoremap <A-f> :YcmCompleter FixIt<CR>
+
+autocmd FileType c,cpp,h,hpp call s:check_ycm_diag_enable()
+fu! s:check_ycm_diag_enable() abort
+	let g:ycm_show_diagnostics_ui = 0
+	let fp = expand('%:p:h')
+	let matchtchfp1 = matchstr(fp, '/kernel')
+	let matchtchfp2 = matchstr(fp, '/linux')
+	if empty(matchtchfp1) && empty(matchtchfp2)
+		let g:ycm_show_diagnostics_ui = 1
+		nnoremap <A-f> :YcmCompleter FixIt<CR>
+	endif
+endf
 " }}}
 
-" {{{ incsearch'=
+" {{{ incsearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
