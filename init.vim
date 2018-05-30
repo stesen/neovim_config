@@ -10,7 +10,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'pboettch/vim-cmake-syntax'
 
 "Plug 'vim-scripts/bash-support.vim'
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : 'cpp' }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c', 'cpp'] }
 Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
 Plug 'drmikehenry/vim-headerguard', { 'for' : ['c', 'cpp'] }
 Plug 'Yggdroot/indentLine', { 'for': 'python' }
