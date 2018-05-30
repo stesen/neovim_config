@@ -1,22 +1,21 @@
 " {{{ plugins
 call plug#begin()
 " language
-Plug 'plasticboy/vim-markdown'
-Plug 'lervag/vimtex'
-Plug 'lzap/vim-selinux'
-Plug 'mmalecki/vim-node.js'
-Plug 'compnerd/arm64asm-vim'
+Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
+Plug 'lervag/vimtex', { 'for' : 'plaintex' }
+Plug 'lzap/vim-selinux', { 'for' : 'te' }
+"Plug 'mmalecki/vim-node.js'
+Plug 'compnerd/arm64asm-vim', { 'for' : 'asm'}
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'pboettch/vim-cmake-syntax'
 
-Plug 'vim-scripts/bash-support.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/linuxsty.vim'
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'drmikehenry/vim-headerguard'
+"Plug 'vim-scripts/bash-support.vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : 'cpp' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
+Plug 'drmikehenry/vim-headerguard', { 'for' : ['c', 'cpp'] }
 Plug 'Yggdroot/indentLine', { 'for': 'python' }
-Plug 'joker1007/vim-markdown-quote-syntax'
-Plug 'vivien/vim-linux-coding-style'
+Plug 'joker1007/vim-markdown-quote-syntax', { 'for' : 'markdown' }
+Plug 'vivien/vim-linux-coding-style', { 'for' : 'c' }
 
 " search
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -79,19 +78,22 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'vim-scripts/LargeFile'
 
+Plug 'KabbAmine/vZoom.vim'
+Plug 'wincent/terminus'
+
 " manage
 Plug 'jlanzarotta/bufexplorer'
-Plug 'majutsushi/tagbar'
-Plug 'lvht/tagbar-markdown'
+Plug 'majutsushi/tagbar', { 'on' : ['TagbarToggle'] }
+Plug 'lvht/tagbar-markdown', { 'on' : ['TagbarToggle'] }
 
-Plug 'scrooloose/nerdtree'
-Plug 'voronkovich/ctrlp-nerdtree.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', {'on' : ['NERDTreeToggle'] }
+Plug 'voronkovich/ctrlp-nerdtree.vim', {'on' : ['NERDTreeToggle'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on' : ['NERDTreeToggle'] }
 
 " theme
-Plug 'arcticicestudio/nord-vim'
+"Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -103,6 +105,11 @@ Plug 'tpope/vim-sleuth'
 call plug#end()
 
 let g:plug_threads=3
+
+autocmd VimEnter *
+			\  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+			\|   PlugInstall --sync | q
+			\| endif
 " }}}
 
 " {{{ Basic
@@ -394,7 +401,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
-let g:airline_theme='dark_minimal'
+let g:airline_theme='fairyfloss'
 " }}}
 
 " {{{ tagbar
