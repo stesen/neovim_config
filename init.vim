@@ -57,7 +57,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 
 Plug 'vim-scripts/BlockComment.vim'
-Plug 'inkarkat/vim-mark'
+"Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 
 Plug 'benizi/vim-automkdir'
@@ -83,6 +83,9 @@ Plug 'wincent/terminus'
 
 Plug 'farmergreg/vim-lastplace'
 Plug 'artnez/vim-rename'
+
+Plug 'lfv89/vim-interestingwords'
+Plug 'vim-scripts/occur.vim'
 
 " manage
 Plug 'jlanzarotta/bufexplorer'
@@ -499,11 +502,18 @@ autocmd FileType c,cpp,h,hpp call s:check_ycm_diag_enable()
 fu! s:check_ycm_diag_enable() abort
 	let g:ycm_show_diagnostics_ui = 0
 	let fp = expand('%:p:h')
-	let matchtchfp1 = matchstr(fp, '/kernel')
-	let matchtchfp2 = matchstr(fp, '/linux')
-	if empty(matchtchfp1) && empty(matchtchfp2)
+	let m = 0
+	for patt in [ '/kernel', '/linux', '/maple' ]
+		let mm = matchstr(fp, patt)
+		if ! empty(mm)
+			let m = 1
+			break
+		endif
+	endfor
+	if m == 0
+		echo "Enable YCM diag UI"
 		let g:ycm_show_diagnostics_ui = 1
-		nnoremap <A-f> :YcmCompleter FixIt<CR>
+		nnoremap <A-y> :YcmCompleter FixIt<CR>
 	endif
 endf
 " }}}
