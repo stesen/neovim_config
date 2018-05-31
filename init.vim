@@ -81,6 +81,9 @@ Plug 'vim-scripts/LargeFile'
 Plug 'KabbAmine/vZoom.vim'
 Plug 'wincent/terminus'
 
+Plug 'farmergreg/vim-lastplace'
+Plug 'artnez/vim-rename'
+
 " manage
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar', { 'on' : ['TagbarToggle'] }
@@ -153,10 +156,6 @@ autocmd FileType jsp call JspFileTypeInit()
 autocmd BufRead,BufNewFile *.pp setfiletype puppet
 autocmd BufEnter,WinEnter,InsertLeave * setl cursorline
 autocmd BufLeave,WinLeave,InsertEnter * setl nocursorline
-autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\ endif
 autocmd BufNewFile,BufEnter * set cpoptions+=d " NOTE: ctags find the tags file from the current path instead of the path of currect file
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
 autocmd BufNewFile,BufRead *.avs set syntax=avs " for avs syntax file.
