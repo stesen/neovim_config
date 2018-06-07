@@ -97,9 +97,12 @@ Plug 'voronkovich/ctrlp-nerdtree.vim', {'on' : ['NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on' : ['NERDTreeToggle'] }
 
 " theme
+Plug 'rakr/vim-one'
+"Plug 'jacoborus/tender.vim'
 "Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 "Plug 'joshdick/onedark.vim'
+"Plug 'rafi/awesome-vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -142,8 +145,9 @@ set background=dark
 set nu
 set colorcolumn&
 set cursorline
-set nowb
-colorscheme OceanicNext
+set termguicolors
+colorscheme one
+"colorscheme OceanicNext
 "colorscheme onedark
 
 "hi vertsplit ctermfg=grey
@@ -170,6 +174,7 @@ autocmd FileType vim set comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",f:\"
 autocmd FileType lua set comments=f:--
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType python,coffee call s:check_if_expand_tab()
+autocmd BufNewFile,BufRead Android.bp :setl ft=go sw=4 sts=4 et
 
 fu! s:check_if_expand_tab() abort
 	let has_noexpandtab = search('^\t','wn')
@@ -305,10 +310,10 @@ endif
 
 " {{{ gtags
 set cscopetag
-set cscopeprg='gtags-cscope'
-let GtagsCscope_Auto_Load = 1
-let CtagsCscope_Auto_Map = 1
-let GtagsCscope_Quiet = 1
+"set cscopeprg='gtags-cscope'
+"let GtagsCscope_Auto_Load = 1
+"let CtagsCscope_Auto_Map = 1
+"let GtagsCscope_Quiet = 1
 
 nnoremap <leader>ga :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
 nnoremap <leader>gd :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
@@ -365,15 +370,39 @@ let g:deoplete#auto_complete_delay = 150
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu/'
 " }}}
 
-" {{{ neomake
-"let g:neomake_vim_enabled_makers = []
-"let g:neomake_cpp_enable_makers = ['clang']
-"call neomake#configure#automake('w')
-"call neomake#configure#automake('nw', 750)
-"call neomake#configure#automake('rw', 1000)
-"call neomake#configure#automake('nrwi', 500)
+" {{{ denite
+let s:insert_mode_mappings = [
+      \  ['jk', '<denite:enter_mode:normal>', 'noremap'],
+      \ ['<Tab>', '<denite:move_to_next_line>', 'noremap'],
+      \ ['<S-tab>', '<denite:move_to_previous_line>', 'noremap'],
+      \  ['<Esc>', '<denite:enter_mode:normal>', 'noremap'],
+      \  ['<C-N>', '<denite:assign_next_matched_text>', 'noremap'],
+      \  ['<C-P>', '<denite:assign_previous_matched_text>', 'noremap'],
+      \  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
+      \  ['<Down>', '<denite:assign_next_text>', 'noremap'],
+      \  ['<C-Y>', '<denite:redraw>', 'noremap'],
+      \ ]
 
-"autocmd! BufWritePost,BufEnter * Neomake
+let s:normal_mode_mappings = [
+      \   ["'", '<denite:toggle_select_down>', 'noremap'],
+      \   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
+      \   ['<C-p>', '<denite:jump_to_previous_source>', 'noremap'],
+      \   ['gg', '<denite:move_to_first_line>', 'noremap'],
+      \   ['st', '<denite:do_action:tabopen>', 'noremap'],
+      \   ['sg', '<denite:do_action:vsplit>', 'noremap'],
+      \   ['sv', '<denite:do_action:split>', 'noremap'],
+      \   ['q', '<denite:quit>', 'noremap'],
+      \   ['r', '<denite:redraw>', 'noremap'],
+      \ ]
+
+for s:m in s:insert_mode_mappings
+  call denite#custom#map('insert', s:m[0], s:m[1], s:m[2])
+endfor
+for s:m in s:normal_mode_mappings
+  call denite#custom#map('normal', s:m[0], s:m[1], s:m[2])
+endfor
+
+unlet s:m s:insert_mode_mappings s:normal_mode_mappings
 " }}}
 
 " {{{ airline
@@ -403,7 +432,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
-let g:airline_theme='fairyfloss'
+"let g:airline_theme='fairyfloss'
 " }}}
 
 " {{{ tagbar
@@ -511,7 +540,6 @@ fu! s:check_ycm_diag_enable() abort
 		endif
 	endfor
 	if m == 0
-		echo "Enable YCM diag UI"
 		let g:ycm_show_diagnostics_ui = 1
 		nnoremap <A-y> :YcmCompleter FixIt<CR>
 	endif
