@@ -310,18 +310,18 @@ endif
 
 " {{{ gtags
 set cscopetag
-"set cscopeprg='gtags-cscope'
-"let GtagsCscope_Auto_Load = 1
-"let CtagsCscope_Auto_Map = 1
-"let GtagsCscope_Quiet = 1
+set cscopeprg='gtags-cscope'
+let GtagsCscope_Auto_Load = 1
+let CtagsCscope_Auto_Map = 1
+let GtagsCscope_Quiet = 1
 
-nnoremap <leader>ga :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
-nnoremap <leader>gd :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
-nnoremap <leader>gr :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
-nnoremap <leader>gg :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
-nnoremap <leader>gt :Denite -buffer-name=gtags_completion gtags_completion<cr>
-nnoremap <leader>gf :Denite -buffer-name=gtags_file gtags_file<cr>
-nnoremap <leader>gp :Denite -buffer-name=gtags_path gtags_path<cr>
+nnoremap <leader>ga :DeniteCursorWord -buffer-name=gtags_context gtags_context -mode=normal<cr>
+nnoremap <leader>gd :DeniteCursorWord -buffer-name=gtags_def gtags_def -mode=normal<cr>
+nnoremap <leader>gr :DeniteCursorWord -buffer-name=gtags_ref gtags_ref -mode=normal<cr>
+nnoremap <leader>gg :DeniteCursorWord -buffer-name=gtags_grep gtags_grep -mode=normal<cr>
+nnoremap <leader>gt :Denite -buffer-name=gtags_completion gtags_completion -mode=normal<cr>
+nnoremap <leader>gf :Denite -buffer-name=gtags_file gtags_file -mode=normal<cr>
+nnoremap <leader>gp :Denite -buffer-name=gtags_path gtags_path -mode=normal<cr>
 " }}}
 
 " {{{ VisualSearch
@@ -376,8 +376,8 @@ let s:insert_mode_mappings = [
       \ ['<Tab>', '<denite:move_to_next_line>', 'noremap'],
       \ ['<S-tab>', '<denite:move_to_previous_line>', 'noremap'],
       \  ['<Esc>', '<denite:enter_mode:normal>', 'noremap'],
-      \  ['<C-N>', '<denite:assign_next_matched_text>', 'noremap'],
-      \  ['<C-P>', '<denite:assign_previous_matched_text>', 'noremap'],
+      \  ['<C-n>', '<denite:move_to_next_line>', 'noremap'],
+      \  ['<C-p>', '<denite:move_to_previous_line>', 'noremap'],
       \  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
       \  ['<Down>', '<denite:assign_next_text>', 'noremap'],
       \  ['<C-Y>', '<denite:redraw>', 'noremap'],
@@ -385,8 +385,8 @@ let s:insert_mode_mappings = [
 
 let s:normal_mode_mappings = [
       \   ["'", '<denite:toggle_select_down>', 'noremap'],
-      \   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
-      \   ['<C-p>', '<denite:jump_to_previous_source>', 'noremap'],
+      \   ['<C-n>', '<denite:move_to_next_line>', 'noremap'],
+      \   ['<C-p>', '<denite:move_to_previous_line>', 'noremap'],
       \   ['gg', '<denite:move_to_first_line>', 'noremap'],
       \   ['st', '<denite:do_action:tabopen>', 'noremap'],
       \   ['sg', '<denite:do_action:vsplit>', 'noremap'],
