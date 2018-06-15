@@ -57,7 +57,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 
 Plug 'vim-scripts/BlockComment.vim'
-"Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 
 Plug 'benizi/vim-automkdir'
@@ -85,7 +85,7 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'artnez/vim-rename'
 
 Plug 'lfv89/vim-interestingwords'
-Plug 'vim-scripts/occur.vim'
+Plug 'stesen/occur.vim'
 
 " manage
 Plug 'jlanzarotta/bufexplorer'
@@ -146,8 +146,8 @@ set nu
 set colorcolumn&
 set cursorline
 set termguicolors
-colorscheme one
-"colorscheme OceanicNext
+"colorscheme one
+colorscheme OceanicNext
 "colorscheme onedark
 
 "hi vertsplit ctermfg=grey
@@ -403,6 +403,19 @@ for s:m in s:normal_mode_mappings
 endfor
 
 unlet s:m s:insert_mode_mappings s:normal_mode_mappings
+
+map <leader>a :DeniteProjectDir -buffer-name=grep -default-action=quickfix grep:::!<CR>
+call denite#custom#source(
+\ 'grep', 'matchers', ['matcher_regexp'])
+
+" use ag for content search
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts',
+    \ ['-i', '--vimgrep', '--ignore', '.hg', '--ignore', '.svn', '--ignore', '.git', '--ignore', '.bzr', '--ignore', '**/*.pyc', '--ignore', '.repo', '--ignore', 'tags', '--ignore', 'cscope.out', '--ignore', 'GPATH', '--ignore', 'GRTAGS', '--ignore', 'GSYMS', '--ignore', 'GTAGS', '--ignore', 'cscope.files'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
 " }}}
 
 " {{{ airline
