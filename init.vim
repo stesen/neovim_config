@@ -148,7 +148,7 @@ set cursorline
 set termguicolors
 "colorscheme one
 colorscheme OceanicNext
-"colorscheme onedark
+"colorscheme onehalfdark
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -305,6 +305,9 @@ if has("cscope")
 		cs add tags_local/cscope.out
 	endif
 	set csverb
+	if has('quickfix')
+	  set cscopequickfix=s-,c-,d-,i-,t-,e-
+	endif
 endif
 " }}}
 
@@ -360,6 +363,14 @@ command! FZFgit call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '40
 command! FZFc call fzf#run({'source': 'cat all_c.txt', 'sink': 'e', 'down': '40%'})
 command! FZFjava call fzf#run({'source': 'cat all_java.txt', 'sink': 'e', 'down': '40%'})
 command! FZFmk call fzf#run({'source': 'cat all_mk.txt', 'sink': 'e', 'down': '40%'})
+" }}}
+
+" {{{ grepper
+let g:grepper = {
+    \ 'tools': ['aag', 'ag', 'git', 'grep', 'findstr'],
+    \ 'aag': {
+    \   'grepprg':    'aag-vim $* .',
+    \ }}
 " }}}
 
 " {{{ deoplete
@@ -450,6 +461,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " {{{ tagbar
 let g:tagbar_left=1
+let g:tagbar_sort = 0
 noremap <silent> <F2> :silent TagbarToggle<CR>
 let g:tagbar_type_arm64asm = {
 			\ 'ctagsbin'  : 'ctags',
@@ -545,7 +557,7 @@ fu! s:check_ycm_diag_enable() abort
 	let g:ycm_show_diagnostics_ui = 0
 	let fp = expand('%:p:h')
 	let m = 0
-	for patt in [ '/kernel', '/linux', '/maple' ]
+	for patt in [ '/kernel', '/linux', '/maple' , '/src' ]
 		let mm = matchstr(fp, patt)
 		if ! empty(mm)
 			let m = 1
