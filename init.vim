@@ -98,6 +98,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on' : ['NERDTreeToggle'] }
 
 " theme
 Plug 'rakr/vim-one'
+Plug 'KeitaNakamura/neodark.vim'
 "Plug 'jacoborus/tender.vim'
 "Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
@@ -121,6 +122,23 @@ autocmd VimEnter *
 			\| endif
 " }}}
 
+" {{{ color
+set background=dark
+set t_Co=256
+set termguicolors
+"colorscheme one
+"colorscheme OceanicNext
+let g:neodark#background = '#202020'
+let g:neodark#use_256color = 1
+"let g:neodark#terminal_transparent = 1
+let g:neodark#solid_vertsplit = 1
+colorscheme neodark
+
+"colorscheme onehalfdark
+
+"hi vertsplit ctermfg=grey
+" }}}
+
 " {{{ Basic
 set fileencodings=utf8,gb2312,gbk,gb18030
 set autoread
@@ -138,19 +156,11 @@ set nowritebackup
 set noswapfile
 set magic
 set hidden
-set t_Co=256
 set mouse=a
 set noautochdir
-set background=dark
 set nu
 set colorcolumn&
 set cursorline
-set termguicolors
-"colorscheme one
-colorscheme OceanicNext
-"colorscheme onehalfdark
-
-"hi vertsplit ctermfg=grey
 " }}}
 
 " {{{ autocmd
@@ -554,20 +564,20 @@ highlight YcmWarningSection guibg=#ffffff
 
 autocmd FileType c,cpp,h,hpp call s:check_ycm_diag_enable()
 fu! s:check_ycm_diag_enable() abort
-	let g:ycm_show_diagnostics_ui = 0
-	let fp = expand('%:p:h')
-	let m = 0
-	for patt in [ '/kernel', '/linux', '/maple' , '/src' ]
-		let mm = matchstr(fp, patt)
-		if ! empty(mm)
-			let m = 1
-			break
-		endif
-	endfor
-	if m == 0
-		let g:ycm_show_diagnostics_ui = 1
-		nnoremap <A-y> :YcmCompleter FixIt<CR>
-	endif
+  let g:ycm_show_diagnostics_ui = 0
+  let fp = expand('%:p:h')
+  let m = 0
+  for patt in [ '/kernel', '/linux', '/maple' , '/src' ]
+    let mm = matchstr(fp, patt)
+    if ! empty(mm)
+      let m = 1
+      break
+    endif
+  endfor
+  if m == 0
+    let g:ycm_show_diagnostics_ui = 1
+    nnoremap <A-y> :YcmCompleter FixIt<CR>
+  endif
 endf
 " }}}
 
