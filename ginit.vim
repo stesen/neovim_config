@@ -1,1 +1,1 @@
-Guifont Source Code Pro for Powerline:h9
+Guifont Source Code Pro for Powerline:h10
