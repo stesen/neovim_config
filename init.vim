@@ -23,6 +23,8 @@ Plug 'vim-scripts/ctags.vim'
 Plug 'vim-scripts/cscope.vim'
 Plug 'aceofall/gtags.vim'
 
+Plug 'jsfaint/gen_tags.vim'
+
 Plug 'vim-scripts/grep.vim'
 Plug 'wsdjeg/FlyGrep.vim'
 
