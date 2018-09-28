@@ -111,6 +111,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'ryanoasis/vim-devicons'
 
+" for gonvim
+Plug 'equalsraf/neovim-gui-shim'
+
 " complete
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
