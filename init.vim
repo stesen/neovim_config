@@ -109,6 +109,8 @@ Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'ryanoasis/vim-devicons'
+
 " complete
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -142,6 +144,7 @@ colorscheme neodark
 " }}}
 
 " {{{ Basic
+set encoding=UTF-8
 set fileencodings=utf8,gb2312,gbk,gb18030
 set autoread
 set incsearch
@@ -516,19 +519,19 @@ let g:bookmark_auto_save = 1
 map <F3> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
-let NERDTreeShowLineNumbers=1
+"let NERDTreeShowLineNumbers=1
 let g:NERDTreeWinPos = "right"
-let g:NERDTreeIndicatorMapCustom = {
-			\ "Modified"  : "✹",
-			\ "Staged"    : "✚",
-			\ "Untracked" : "✭",
-			\ "Renamed"   : "➜",
-			\ "Unmerged"  : "═",
-			\ "Deleted"   : "✖",
-			\ "Dirty"     : "✗",
-			\ "Clean"     : "✔︎",
-			\ "Unknown"   : "?"
-			\ }
+"let g:NERDTreeIndicatorMapCustom = {
+"			\ "Modified"  : "✹",
+"			\ "Staged"    : "✚",
+"			\ "Untracked" : "✭",
+"			\ "Renamed"   : "➜",
+"			\ "Unmerged"  : "═",
+"			\ "Deleted"   : "✖",
+"			\ "Dirty"     : "✗",
+"			\ "Clean"     : "✔︎",
+"			\ "Unknown"   : "?"
+"			\ }
 "autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
 nmap <Leader>nd :NERDTreeFocus<cr>R<c-w><c-p>
 " }}}
