@@ -89,6 +89,10 @@ Plug 'artnez/vim-rename'
 Plug 'lfv89/vim-interestingwords'
 Plug 'stesen/occur.vim'
 
+Plug 'kana/vim-fakeclip'
+
+Plug 'tpope/vim-eunuch'
+
 " manage
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar', { 'on' : ['TagbarToggle'] }
@@ -117,7 +121,8 @@ Plug 'equalsraf/neovim-gui-shim'
 " complete
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'tpope/vim-sleuth'
 call plug#end()
 
@@ -135,13 +140,10 @@ set t_Co=256
 set termguicolors
 "colorscheme one
 "colorscheme OceanicNext
-let g:neodark#background = '#202020'
 let g:neodark#use_256color = 1
 "let g:neodark#terminal_transparent = 1
 let g:neodark#solid_vertsplit = 1
 colorscheme neodark
-
-"colorscheme onehalfdark
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -389,6 +391,7 @@ let g:grepper = {
     \ 'aag': {
     \   'grepprg':    'aag-vim $* .',
     \ }}
+nnoremap <leader>gw :Grepper -cword -noprompt<cr>
 " }}}
 
 " {{{ deoplete
@@ -463,6 +466,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
+let g:airline_theme='solarized_flood'
 "let g:airline_theme='fairyfloss'
 " }}}
 
@@ -551,32 +555,32 @@ smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " }}}
 
-" {{{ ycm
-let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
-let g:ycm_python_binary_path = '/usr/bin/python3'
-
-highlight YcmWarningLine guibg=#ffffff
-highlight YcmWarningSign guibg=#ffffff
-highlight YcmWarningSection guibg=#ffffff
-
-autocmd FileType c,cpp,h,hpp call s:check_ycm_diag_enable()
-fu! s:check_ycm_diag_enable() abort
-  let g:ycm_show_diagnostics_ui = 0
-  let fp = expand('%:p:h')
-  let m = 0
-  for patt in [ '/kernel', '/linux', '/maple' , '/src' ]
-    let mm = matchstr(fp, patt)
-    if ! empty(mm)
-      let m = 1
-      break
-    endif
-  endfor
-  if m == 0
-    let g:ycm_show_diagnostics_ui = 1
-    nnoremap <A-y> :YcmCompleter FixIt<CR>
-  endif
-endf
-" }}}
+" " {{{ ycm
+" let g:ycm_global_ycm_extra_conf = '~/.config/nvim/ycm_extra_conf.py'
+" let g:ycm_python_binary_path = '/usr/bin/python3'
+" 
+" highlight YcmWarningLine guibg=#ffffff
+" highlight YcmWarningSign guibg=#ffffff
+" highlight YcmWarningSection guibg=#ffffff
+" 
+" autocmd FileType c,cpp,h,hpp call s:check_ycm_diag_enable()
+" fu! s:check_ycm_diag_enable() abort
+"   let g:ycm_show_diagnostics_ui = 0
+"   let fp = expand('%:p:h')
+"   let m = 0
+"   for patt in [ '/kernel', '/linux', '/maple' , '/src', '/qemu' ]
+"     let mm = matchstr(fp, patt)
+"     if ! empty(mm)
+"       let m = 1
+"       break
+"     endif
+"   endfor
+"   if m == 0
+"     let g:ycm_show_diagnostics_ui = 1
+"     nnoremap <A-y> :YcmCompleter FixIt<CR>
+"   endif
+" endf
+" " }}}
 
 " {{{ incsearch
 map /  <Plug>(incsearch-forward)
