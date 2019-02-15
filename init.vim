@@ -400,6 +400,10 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#auto_complete_delay = 150
 
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu/'
+
+call deoplete#custom#source('_',
+		\ 'matchers', ['matcher_head'])
+
 " }}}
 
 " {{{ denite
@@ -597,4 +601,12 @@ map <A-3>  <Plug>(asterisk-z#)
 let g:asterisk#keeppos = 1
 map g* <Plug>(asterisk-gz*)
 map g# <Plug>(asterisk-gz#)
+" }}}
+
+" {{{ complete_parameter
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " }}}
