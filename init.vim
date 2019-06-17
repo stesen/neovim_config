@@ -56,6 +56,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'rkitover/vimpager'
 Plug 'haya14busa/vim-asterisk'
 Plug 'jiangmiao/auto-pairs'
+Plug 'Shougo/neopairs.vim'
 Plug 'mbbill/undotree'
 
 Plug 'vim-scripts/BlockComment.vim'
@@ -188,6 +189,8 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 autocmd BufNewFile,BufRead *.avs set syntax=avs " for avs syntax file.
 autocmd FileType text setlocal textwidth=78 " for all text files set 'textwidth' to 78 characters.
 autocmd FileType c,cpp,cs,swig set nomodeline " this will avoid bug in my project with namespace ex, the vim will tree ex:: as modeline.
+autocmd FileType c set colorcolumn=80
+autocmd FileType cpp set colorcolumn=120
 autocmd FileType c,cpp,java,javascript set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://
 autocmd FileType cs set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f:///,f://
 autocmd FileType vim set comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",f:\"
@@ -290,7 +293,7 @@ function! Tab4() range
 	set softtabstop=4
 	set shiftwidth=4
 	setlocal cindent
-	setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+    	"setlocal cinoptions=h1,l1,g0,t0,i4,+4,(0,w1,W4
 endfunction
 function! Tab2() range
 	set tabstop=2
@@ -298,9 +301,10 @@ function! Tab2() range
 	set softtabstop=2
 	set shiftwidth=2
 	setlocal cindent
-	setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+	"setlocal cinoptions=h1,l1,g0,t0,i4,+4,(0,w1,W4
 endfunction
 
+set cinoptions+=g0
 nnoremap <A-t> :call Tab2()<CR>
 nnoremap <A-f> :call Tab4()<CR>
 nnoremap <A-k> :LinuxCodingStyle<CR>
