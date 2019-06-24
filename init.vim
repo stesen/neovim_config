@@ -8,6 +8,7 @@ Plug 'lzap/vim-selinux', { 'for' : 'te' }
 Plug 'compnerd/arm64asm-vim', { 'for' : 'asm'}
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'pboettch/vim-cmake-syntax'
+Plug 'c0nk/vim-gn'
 
 "Plug 'vim-scripts/bash-support.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c', 'cpp'] }
