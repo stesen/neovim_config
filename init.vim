@@ -623,8 +623,8 @@ imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 let g:floaterm_width = &columns / 2
 let g:floaterm_height = winheight(0)/2
 noremap  <silent> <expr><F12>     &buftype =='terminal' ?
-                                  \ "\<C-\><C-n>:call util#toggleWindows('terminal')\<CR>" :
-                                  \ "\<Esc>:call util#toggleWindows('terminal')\<CR>i<C-u>"
-noremap! <silent> <F12>           <Esc>:call util#toggleWindows('terminal')<CR>i
-tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')<CR>
+                                  \ "\<C-\><C-n>:FloatermToggle\<CR>" :
+                                  \ "\<Esc>:FloatermToggle\<CR>i<C-u>"
+noremap! <silent> <F12>           <Esc>:FloatermToggle<CR>i
+tnoremap <silent> <F12>           <C-\><C-n>:FloatermToggle<CR>
 " }}}
