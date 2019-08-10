@@ -9,6 +9,7 @@ Plug 'compnerd/arm64asm-vim', { 'for' : 'asm'}
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'c0nk/vim-gn'
+Plug 'rust-lang/rust.vim'
 
 "Plug 'vim-scripts/bash-support.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c', 'cpp'] }
@@ -94,6 +95,8 @@ Plug 'stesen/occur.vim'
 Plug 'kana/vim-fakeclip'
 
 Plug 'tpope/vim-eunuch'
+
+Plug 'voldikss/vim-floaterm'
 
 " manage
 Plug 'jlanzarotta/bufexplorer'
@@ -614,4 +617,14 @@ smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+" }}}
+
+"{{{ floaterm
+let g:floaterm_width = &columns / 2
+let g:floaterm_height = winheight(0)/2
+noremap  <silent> <expr><F12>     &buftype =='terminal' ?
+                                  \ "\<C-\><C-n>:call util#toggleWindows('terminal')\<CR>" :
+                                  \ "\<Esc>:call util#toggleWindows('terminal')\<CR>i<C-u>"
+noremap! <silent> <F12>           <Esc>:call util#toggleWindows('terminal')<CR>i
+tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')<CR>
 " }}}
