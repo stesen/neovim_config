@@ -638,12 +638,6 @@ tnoremap <silent> <F12>           <C-\><C-n>:FloatermToggle<CR>
 " }}}
 
 " {{{ coc
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
 
 " Better display for messages
 set cmdheight=2
@@ -759,14 +753,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-call coc#config('languageserver', {
-		\ 'ccls': {
-		\   "command": "ccls",
-		\   "trace.server": "verbose",
-		\   "filetypes": ["c", "cpp", "objc", "objcpp"]
-		\ }
-		\})
 
 let g:coc_global_extensions = ['coc-dictionary', 'coc-tag', 'coc-word', 'coc-syntax', 'coc-lists', 'coc-highlight', 'coc-git', 'coc-json']
 
