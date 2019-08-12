@@ -1,10 +1,6 @@
 {
     "diagnostic.enable": false,
 
-    "http.proxyStrictSSL": false,
-    "http.proxy": "http://localhost:3128",
-    "https.proxy": "http://localhost:3128",
-
     "languageserver": {
         "ccls": {
             "command": "ccls",
@@ -16,5 +12,8 @@
                 }
             }
         }
-    }
+    },
+
+    "list.source.grep.excludePatterns": ["**/GTAG*", "**/tags", "**/cscope.*"],
+    "list.source.files.excludePatterns": ["**/GTAG*", "**/tags", "**/cscope.*"],
 }

@@ -754,7 +754,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-let g:coc_global_extensions = ['coc-dictionary', 'coc-tag', 'coc-word', 'coc-syntax', 'coc-lists', 'coc-highlight', 'coc-git', 'coc-json']
+let g:coc_global_extensions = ['coc-dictionary', 'coc-tag', 'coc-word', 'coc-syntax', 'coc-lists', 'coc-highlight', 'coc-git', 'coc-json', 'coc-yank']
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
