@@ -290,6 +290,10 @@ nnoremap <silent><Up> gk
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+
+" remap ctrl-m
+inoremap <C-M> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>C-M>"<CR>
+
 " }}}
 
 " {{{ manual indent
