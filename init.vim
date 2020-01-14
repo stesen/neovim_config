@@ -115,6 +115,8 @@ Plug 'KeitaNakamura/neodark.vim'
 Plug 'mhartington/oceanic-next'
 "Plug 'joshdick/onedark.vim'
 "Plug 'rafi/awesome-vim-colorschemes'
+Plug 'KabbAmine/yowish.vim'
+Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -144,13 +146,16 @@ autocmd VimEnter *
 " {{{ color
 set background=dark
 set t_Co=256
+set t_ut=
 set termguicolors
 "colorscheme one
 "colorscheme OceanicNext
 let g:neodark#use_256color = 1
 "let g:neodark#terminal_transparent = 1
 let g:neodark#solid_vertsplit = 1
-colorscheme neodark
+"colorscheme neodark
+"colorscheme codedark
+colorscheme yowish
 
 "hi vertsplit ctermfg=grey
 " }}}
