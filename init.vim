@@ -117,6 +117,7 @@ Plug 'mhartington/oceanic-next'
 "Plug 'rafi/awesome-vim-colorschemes'
 Plug 'KabbAmine/yowish.vim'
 Plug 'tomasiser/vim-code-dark'
+Plug 'kjssad/quantum.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -149,13 +150,14 @@ set t_Co=256
 set t_ut=
 set termguicolors
 "colorscheme one
-"colorscheme OceanicNext
-let g:neodark#use_256color = 1
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
+"colorscheme quantum
+"let g:neodark#use_256color = 1
 "let g:neodark#terminal_transparent = 1
-let g:neodark#solid_vertsplit = 1
+"let g:neodark#solid_vertsplit = 1
 "colorscheme neodark
-"colorscheme codedark
-colorscheme yowish
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -258,6 +260,8 @@ map mk <ESC>:wa!<cr>:!clear && make <cr>
 "-------------------------------------------------- 
 map <Leader>p :pt <C-R>=expand("<cword>")<cr><cr>
 map <Leader>l :pc<cr>
+
+noremap ,f <ESC>ggd%:r! cat ~/head.txt<cr>ggdd
 
 nnoremap <silent><C-Right> :<C-u>wincmd l<CR>
 nnoremap <silent><C-Left>  :<C-u>wincmd h<CR>
@@ -493,6 +497,9 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 "let g:airline_theme='solarized_flood'
 "let g:airline_theme='fairyfloss'
+let g:lightline = {
+  \ 'colorscheme': 'quantum'
+  \ }
 " }}}
 
 " {{{ tagbar
