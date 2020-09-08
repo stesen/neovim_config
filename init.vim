@@ -27,6 +27,8 @@ Plug 'aceofall/gtags.vim'
 
 Plug 'jsfaint/gen_tags.vim'
 
+Plug 'liuchengxu/vista.vim'
+
 Plug 'vim-scripts/grep.vim'
 Plug 'wsdjeg/FlyGrep.vim'
 
@@ -60,6 +62,8 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/neopairs.vim'
 Plug 'mbbill/undotree'
+
+Plug 'rhysd/accelerated-jk'
 
 Plug 'vim-scripts/BlockComment.vim'
 Plug 'inkarkat/vim-mark'
@@ -122,6 +126,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'ryanoasis/vim-devicons'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'jaxbot/semantic-highlight.vim'
 
 " for gonvim
 Plug 'equalsraf/neovim-gui-shim'
@@ -801,3 +807,13 @@ endfunction
 nnoremap <silent> <space>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
 
 " }}}
+
+"""{{{ accelerated-jk
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+""" }}}
+
+""" {{{
+nnoremap <Leader>s :SemanticHighlightToggle<cr>
+""" }}}
