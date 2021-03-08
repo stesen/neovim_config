@@ -208,6 +208,7 @@ autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 			\   q | endif
 autocmd FileType jsp call JspFileTypeInit()
 autocmd BufRead,BufNewFile *.pp setfiletype puppet
+autocmd BufRead,BufNewFile ohos.build setfiletype json
 autocmd BufEnter,WinEnter,InsertLeave * setl cursorline
 autocmd BufLeave,WinLeave,InsertEnter * setl nocursorline
 autocmd BufNewFile,BufEnter * set cpoptions+=d " NOTE: ctags find the tags file from the current path instead of the path of currect file
@@ -422,12 +423,17 @@ command! FZFmk call fzf#run({'source': 'cat all_mk.txt', 'sink': 'e', 'down': '4
 " }}}
 
 " {{{ grepper
-let g:grepper = {
-    \ 'tools': ['aag', 'ag', 'git', 'grep', 'findstr'],
-    \ 'aag': {
-    \   'grepprg':    'aag-vim $* .',
-    \ }}
-nnoremap <leader>gw :Grepper -cword -noprompt<cr>
+"--------------------------------------------------
+" let g:grepper = {
+"     \ 'tools': ['aag', 'ag', 'git', 'grep', 'findstr'],
+"     \ 'aag': {
+"     \   'grepprg':    'aag-vim $* .',
+"     \ }}
+" nnoremap <leader>gw :Grepper -cword -noprompt<cr>
+"--------------------------------------------------
+
+set grepprg=aag-vim
+nnoremap <leader>gw :grep <C-r><C-w><CR>
 " }}}
 
 " {{{ deoplete
