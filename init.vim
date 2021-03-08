@@ -49,6 +49,11 @@ Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-lookup'
 Plug 'mileszs/ack.vim'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " version
 Plug 'lambdalisue/vim-gita'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
@@ -101,6 +106,8 @@ Plug 'kana/vim-fakeclip'
 Plug 'tpope/vim-eunuch'
 
 Plug 'voldikss/vim-floaterm'
+
+Plug 'wellle/targets.vim'
 
 " manage
 Plug 'jlanzarotta/bufexplorer'
@@ -816,4 +823,39 @@ nmap k <Plug>(accelerated_jk_gk)
 
 """ {{{
 nnoremap <Leader>s :SemanticHighlightToggle<cr>
+""" }}}
+
+""" {{{
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fl <cmd>Telescope git_files<cr>
+""" }}}
+
+""" {{{
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+  indent = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
 """ }}}
