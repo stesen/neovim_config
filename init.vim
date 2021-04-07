@@ -10,6 +10,9 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'c0nk/vim-gn'
 Plug 'rust-lang/rust.vim'
+Plug 'gburca/vim-logcat'
+
+Plug 'leafgarland/typescript-vim'
 
 "Plug 'vim-scripts/bash-support.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c', 'cpp'] }
