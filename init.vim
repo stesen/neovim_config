@@ -122,6 +122,7 @@ Plug 'voronkovich/ctrlp-nerdtree.vim', {'on' : ['NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on' : ['NERDTreeToggle'] }
 
 " theme
+Plug 'folke/lsp-colors.nvim'
 Plug 'rakr/vim-one'
 Plug 'KeitaNakamura/neodark.vim'
 "Plug 'jacoborus/tender.vim'
