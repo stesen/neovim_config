@@ -321,6 +321,8 @@ cnoremap <C-f> <Right>
 " remap ctrl-m
 inoremap <C-M> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>C-M>"<CR>
 
+" json format
+nnoremap <Leader>jf :%!jf %<CR>
 " }}}
 
 " {{{ manual indent
