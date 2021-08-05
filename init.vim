@@ -135,7 +135,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'kjssad/quantum.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'savq/melange'
 
+Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'jaxbot/semantic-highlight.vim'
@@ -169,12 +171,13 @@ set termguicolors
 "colorscheme one
 "let g:oceanic_next_terminal_bold = 1
 "let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+"colorscheme OceanicNext
 "colorscheme quantum
-let g:neodark#use_256color = 1
-let g:neodark#terminal_transparent = 1
-let g:neodark#solid_vertsplit = 1
+"let g:neodark#use_256color = 1
+"let g:neodark#terminal_transparent = 1
+"let g:neodark#solid_vertsplit = 1
 "colorscheme neodark
+colorscheme melange
 
 "hi vertsplit ctermfg=grey
 " }}}
