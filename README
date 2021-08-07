@@ -1,0 +1,6 @@
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+yay -S python-pip nodejs npm maven ccls ctags cscope global silver-searcher-git
+pip install neovim
+
