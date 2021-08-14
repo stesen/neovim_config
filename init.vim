@@ -135,7 +135,11 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'kjssad/quantum.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'savq/melange'
+"Plug 'savq/melange'
+"Plug 'tyrannicaltoucan/vim-deep-space'
+"Plug 'kristijanhusak/vim-hybrid-material'
+"Plug 'mkarmona/materialbox'
+Plug 'sainnhe/sonokai'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
@@ -177,7 +181,16 @@ set termguicolors
 "let g:neodark#terminal_transparent = 1
 "let g:neodark#solid_vertsplit = 1
 "colorscheme neodark
-colorscheme melange
+"colorscheme melange
+
+if has('termguicolors')
+	set termguicolors
+endif
+" The configuration options should be placed before `colorscheme sonokai`.
+let g:sonokai_style = 'andromeda'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+colorscheme sonokai
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -525,9 +538,10 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 "let g:airline_theme='solarized_flood'
 "let g:airline_theme='fairyfloss'
-let g:lightline = {
-  \ 'colorscheme': 'quantum'
-  \ }
+" let g:lightline = {
+"   \ 'colorscheme': 'quantum'
+"   \ }
+let g:airline_theme = "sonokai"
 " }}}
 
 " {{{ tagbar
