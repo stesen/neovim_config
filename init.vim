@@ -21,6 +21,7 @@ Plug 'drmikehenry/vim-headerguard', { 'for' : ['c', 'cpp'] }
 Plug 'Yggdroot/indentLine', { 'for': 'python' }
 Plug 'joker1007/vim-markdown-quote-syntax', { 'for' : 'markdown' }
 Plug 'vivien/vim-linux-coding-style', { 'for' : 'c' }
+Plug 'vim-scripts/AnsiEsc.vim'
 
 " search
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -228,6 +229,7 @@ autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 			\   q | endif
 autocmd FileType jsp call JspFileTypeInit()
 autocmd BufRead,BufNewFile *.pp setfiletype puppet
+autocmd BufRead,BufNewFile *.cfg set ft=json
 autocmd BufRead,BufNewFile ohos.build setfiletype json
 autocmd BufEnter,WinEnter,InsertLeave * setl cursorline
 autocmd BufLeave,WinLeave,InsertEnter * setl nocursorline
