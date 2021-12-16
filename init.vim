@@ -113,6 +113,8 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'wellle/targets.vim'
 
+Plug 'roxma/vim-paste-easy'
+
 " manage
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar', { 'on' : ['TagbarToggle'] }
