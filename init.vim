@@ -57,6 +57,9 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/playground'
+Plug 'romgrk/nvim-treesitter-context'
 
 " version
 Plug 'lambdalisue/vim-gita'
@@ -114,6 +117,8 @@ Plug 'voldikss/vim-floaterm'
 Plug 'wellle/targets.vim'
 
 Plug 'roxma/vim-paste-easy'
+
+Plug 'DanilaMihailov/beacon.nvim'
 
 " manage
 Plug 'jlanzarotta/bufexplorer'
@@ -917,6 +922,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+"lua require'nvim-treesitter.install'.compilers = { "gcc-11" }
 
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
