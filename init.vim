@@ -88,6 +88,7 @@ Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'ojroques/vim-oscyank'
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'simnalamburt/vim-mundo'
@@ -928,4 +929,9 @@ EOF
 
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
+""" }}}
+
+""" {{{
+vnoremap <leader>c :OSCYank<CR>
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
 """ }}}
