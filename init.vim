@@ -60,6 +60,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/playground'
 Plug 'romgrk/nvim-treesitter-context'
+Plug 'jremmen/vim-ripgrep'
 
 " version
 Plug 'lambdalisue/vim-gita'
@@ -227,7 +228,7 @@ set hidden
 set mouse=a
 set noautochdir
 set nu
-set colorcolumn&
+"set colorcolumn&
 set cursorline
 " }}}
 
@@ -248,8 +249,8 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 autocmd BufNewFile,BufRead *.avs set syntax=avs " for avs syntax file.
 autocmd FileType text setlocal textwidth=78 " for all text files set 'textwidth' to 78 characters.
 autocmd FileType c,cpp,cs,swig set nomodeline " this will avoid bug in my project with namespace ex, the vim will tree ex:: as modeline.
-autocmd FileType c set colorcolumn=80
-autocmd FileType cpp set colorcolumn=120
+"autocmd FileType c set colorcolumn=80
+"autocmd FileType c,cpp set colorcolumn=120
 autocmd FileType c,cpp,java,javascript set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f://
 autocmd FileType cs set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,f:///,f://
 autocmd FileType vim set comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",f:\"
@@ -934,4 +935,8 @@ EOF
 """ {{{
 vnoremap <leader>c :OSCYank<CR>
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
+""" }}}
+
+""" {{{
+"let g:rg_command = "rg --vimgrep"q
 """ }}}
