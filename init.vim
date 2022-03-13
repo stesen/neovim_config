@@ -149,8 +149,9 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'tyrannicaltoucan/vim-deep-space'
 "Plug 'kristijanhusak/vim-hybrid-material'
 "Plug 'mkarmona/materialbox'
-Plug 'sainnhe/sonokai'
-Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'sainnhe/sonokai'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'shaunsingh/nord.nvim'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
@@ -202,7 +203,11 @@ endif
 "let g:sonokai_enable_italic = 1
 "let g:sonokai_disable_italic_comment = 1
 "colorscheme sonokai
-colorscheme dracula
+let g:nord_contrast = v:true
+let g:nord_borders = v:true
+let g:nord_disable_background = v:true
+let g:nord_italic = v:true
+colorscheme nord
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -554,7 +559,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 " let g:lightline = {
 "   \ 'colorscheme': 'quantum'
 "   \ }
-let g:airline_theme = "sonokai"
+"let g:airline_theme = "sonokai"
 " }}}
 
 " {{{ tagbar
