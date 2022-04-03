@@ -56,10 +56,10 @@ Plug 'mileszs/ack.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/playground'
-Plug 'romgrk/nvim-treesitter-context'
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/nvim-treesitter-refactor'
+"Plug 'nvim-treesitter/playground'
+"Plug 'romgrk/nvim-treesitter-context'
 Plug 'jremmen/vim-ripgrep'
 
 " version
@@ -185,9 +185,9 @@ set t_Co=256
 set t_ut=
 set termguicolors
 "colorscheme one
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"colorscheme OceanicNext
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 "colorscheme quantum
 "let g:neodark#use_256color = 1
 "let g:neodark#terminal_transparent = 1
@@ -203,11 +203,11 @@ endif
 "let g:sonokai_enable_italic = 1
 "let g:sonokai_disable_italic_comment = 1
 "colorscheme sonokai
-let g:nord_contrast = v:true
-let g:nord_borders = v:true
-let g:nord_disable_background = v:true
-let g:nord_italic = v:true
-colorscheme nord
+"let g:nord_contrast = v:true
+"let g:nord_borders = v:true
+"let g:nord_disable_background = v:true
+"let g:nord_italic = v:true
+"colorscheme nord
 
 "hi vertsplit ctermfg=grey
 " }}}
@@ -911,26 +911,27 @@ nnoremap <leader>fl <cmd>Telescope git_files<cr>
 """ }}}
 
 """ {{{
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-  },
-  indent = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-}
-EOF
+"lua <<EOF
+"require'nvim-treesitter.configs'.setup {
+"  ensure_installed = "all",
+"  highlight = {
+"    enable = true,              -- false will disable the whole extension
+"  },
+"  indent = {
+"    enable = true,
+"  },
+"  disable = { "php" },
+"  incremental_selection = {
+"    enable = true,
+"    keymaps = {
+"      init_selection = "gnn",
+"      node_incremental = "grn",
+"      scope_incremental = "grc",
+"      node_decremental = "grm",
+"    },
+"  },
+"}
+"EOF
 "lua require'nvim-treesitter.install'.compilers = { "gcc-11" }
 
 "set foldmethod=expr
