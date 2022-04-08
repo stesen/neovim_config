@@ -143,8 +143,13 @@ Plug 'mhartington/oceanic-next'
 Plug 'KabbAmine/yowish.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'kjssad/quantum.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
+
 "Plug 'savq/melange'
 "Plug 'tyrannicaltoucan/vim-deep-space'
 "Plug 'kristijanhusak/vim-hybrid-material'
@@ -538,21 +543,29 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 " }}}
 
-" {{{ airline
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" {{{
+lua << END
+require('lualine').setup()
+END
+" }}}
 
-let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#tab_nr_type= 2
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
-let g:airline#extensions#tabline#tabs_label = 'TABS'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = '|'
+" {{{ airline
+"--------------------------------------------------
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" 
+" let g:airline#extensions#tabline#show_tab_nr = 1
+" let g:airline#extensions#tabline#tab_nr_type= 2
+" let g:airline#extensions#tabline#show_tab_type = 1
+" let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
+" let g:airline#extensions#tabline#tabs_label = 'TABS'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline#extensions#tabline#left_sep = ''
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+"-------------------------------------------------- 
 
 "let g:airline_theme='solarized_flood'
 "let g:airline_theme='fairyfloss'
