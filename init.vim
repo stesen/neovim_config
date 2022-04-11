@@ -56,7 +56,7 @@ Plug 'mileszs/ack.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'nvim-treesitter/nvim-treesitter-refactor'
 "Plug 'nvim-treesitter/playground'
 "Plug 'romgrk/nvim-treesitter-context'
@@ -924,29 +924,28 @@ nnoremap <leader>fl <cmd>Telescope git_files<cr>
 """ }}}
 
 """ {{{
-"lua <<EOF
-"require'nvim-treesitter.configs'.setup {
-"  ensure_installed = "all",
-"  highlight = {
-"    enable = true,              -- false will disable the whole extension
-"  },
-"  indent = {
-"    enable = true,
-"  },
-"  disable = { "php" },
-"  incremental_selection = {
-"    enable = true,
-"    keymaps = {
-"      init_selection = "gnn",
-"      node_incremental = "grn",
-"      scope_incremental = "grc",
-"      node_decremental = "grm",
-"    },
-"  },
-"}
-"EOF
-"lua require'nvim-treesitter.install'.compilers = { "gcc-11" }
-
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+ensure_installed = {"ninja", "regex", "dart", "make", "rst", "lua", "cpp", "javascript", "comment", "bash", "dockerfile", "rust", "markdown", "python", "cmake", "json", "vim", "typescript", "java", "kotlin", "llvm", "css", "json5", "c", "devicetree", "yaml" },
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+  indent = {
+    enable = true,
+  },
+  disable = { "php", "phpdoc" },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+lua require'nvim-treesitter.install'.compilers = { "gcc-11" }
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
 """ }}}
