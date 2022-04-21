@@ -954,7 +954,7 @@ ensure_installed = {"ninja", "regex", "dart", "make", "rst", "lua", "cpp", "java
   },
 }
 EOF
-lua require'nvim-treesitter.install'.compilers = { "gcc-11" }
+lua require'nvim-treesitter.install'.compilers = { "gcc" }
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
 """ }}}
