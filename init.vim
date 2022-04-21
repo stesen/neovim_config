@@ -46,7 +46,7 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 
-Plug 'Yggdroot/LeaderF'
+"Plug 'Yggdroot/LeaderF'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 Plug 'mhinz/vim-grepper'
@@ -56,6 +56,10 @@ Plug 'mileszs/ack.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
+Plug 'nvim-telescope/telescope-rg.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'nvim-treesitter/nvim-treesitter-refactor'
 "Plug 'nvim-treesitter/playground'
@@ -455,6 +459,7 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 if has("gui_running")
 	map  <silent>  <S-Insert>  "+p
 	imap <silent>  <S-Insert>  <Esc>"+pa
+	set guifont=FiraCode\ NF:h8
 endif
 " }}}
 
@@ -786,14 +791,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+"nmap <silent> [c <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -852,21 +857,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 let g:coc_global_extensions = ['coc-dictionary', 'coc-tag', 'coc-word', 'coc-syntax', 'coc-lists', 'coc-highlight', 'coc-git', 'coc-json', 'coc-yank']
 
@@ -880,10 +885,10 @@ function! s:GrepArgs(...)
 endfunction
 
 " Keymapping for grep word under cursor with interactive mode
-nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+"nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
-vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <leader>g :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
+"vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+"nnoremap <leader>g :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -915,12 +920,16 @@ nnoremap <Leader>s :SemanticHighlightToggle<cr>
 """ }}}
 
 """ {{{
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fl <cmd>Telescope git_files<cr>
+lua require('config-telescope')
+nnoremap <space>cc <cmd>Telescope coc<cr>
+nnoremap <space>cd <cmd>Telescope coc definitions<cr>
+nnoremap <space>cr <cmd>Telescope coc references<cr>
+nnoremap <space>cs <cmd>Telescope coc workspace_symbols<cr>
+
+nnoremap <space>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <space>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
+nnoremap <space>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <space>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 """ }}}
 
 """ {{{
