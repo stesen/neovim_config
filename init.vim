@@ -68,6 +68,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'nvim-treesitter/nvim-treesitter-refactor'
 "Plug 'nvim-treesitter/playground'
 "Plug 'romgrk/nvim-treesitter-context'
+Plug 'SmiteshP/nvim-gps'
 Plug 'jremmen/vim-ripgrep'
 
 " version
@@ -171,9 +172,14 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'jaxbot/semantic-highlight.vim'
+Plug 'RRethy/vim-illuminate'
 
 " for gonvim
-Plug 'equalsraf/neovim-gui-shim'
+"Plug 'equalsraf/neovim-gui-shim'
+
+" call tree
+Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/litee-calltree.nvim'
 
 " complete
 "Plug 'tenfyzhong/CompleteParameter.vim'
@@ -182,6 +188,8 @@ Plug 'equalsraf/neovim-gui-shim'
 "Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -566,9 +574,18 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 " }}}
 
-" {{{
+" {{{ lualine
 lua << END
-require('lualine').setup()
+-- Lua
+local gps = require("nvim-gps")
+
+require("lualine").setup({
+sections = {
+	lualine_c = {
+		{ gps.get_location, cond = gps.is_available },
+		}
+	}
+})
 END
 " }}}
 
@@ -1049,9 +1066,178 @@ lua <<EOF
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['ccls'].setup {
+  require('lspconfig')['clangd'].setup {
     capabilities = capabilities
   }
 EOF
 lua require('luasnip').filetype_extend("ruby", {"rails"})
-""" }}
+""" }}}
+
+""" {{{ calltree
+lua <<EOF
+require('litee.lib').setup({
+   panel = {
+        orientation = "right",
+        panel_size  = 50
+    },
+})
+
+-- configure litee-calltree.nvim
+-- commands: LTOpenToCalltree to open calltree
+require('litee.calltree').setup({
+   -- NOTE: the plugin is in-progressing
+  on_open = "pannel", -- pannel | popout
+  hide_cursor = false,
+  keymaps = {
+    expand = "o",
+    collapse = "zc",
+    collapse_all = "zM",
+    jump = "<CR>",
+    jump_split = "s",
+    jump_vsplit = "v",
+    jump_tab = "t",
+    hover = "i",
+    details = "d",
+    close = "X",
+    close_panel_pop_out = "<C-c>",
+    help = "?",
+    hide = "H",
+    switch = "S",
+    focus = "f"
+  },
+})
+EOF
+lua require('litee.calltree').setup()
+""" }}}
+
+""" {{{ gps
+lua <<EOF
+require("nvim-gps").setup({
+
+	disable_icons = false,           -- Setting it to true will disable all icons
+
+	icons = {
+		["class-name"] = ' ',      -- Classes and class-like objects
+		["function-name"] = ' ',   -- Functions
+		["method-name"] = ' ',     -- Methods (functions inside class-like objects)
+		["container-name"] = '⛶ ',  -- Containers (example: lua tables)
+		["tag-name"] = '炙'         -- Tags (example: html tags)
+	},
+
+	-- Add custom configuration per language or
+	-- Disable the plugin for a language
+	-- Any language not disabled here is enabled by default
+	languages = {
+		-- Some languages have custom icons
+		["json"] = {
+			icons = {
+				["array-name"] = ' ',
+				["object-name"] = ' ',
+				["null-name"] = '[] ',
+				["boolean-name"] = 'ﰰﰴ ',
+				["number-name"] = '# ',
+				["string-name"] = ' '
+			}
+		},
+		["latex"] = {
+			icons = {
+				["title-name"] = "# ",
+				["label-name"] = " ",
+			},
+		},
+		["norg"] = {
+			icons = {
+				["title-name"] = " ",
+			},
+		},
+		["toml"] = {
+			icons = {
+				["table-name"] = ' ',
+				["array-name"] = ' ',
+				["boolean-name"] = 'ﰰﰴ ',
+				["date-name"] = ' ',
+				["date-time-name"] = ' ',
+				["float-name"] = ' ',
+				["inline-table-name"] = ' ',
+				["integer-name"] = '# ',
+				["string-name"] = ' ',
+				["time-name"] = ' '
+			}
+		},
+		["verilog"] = {
+			icons = {
+				["module-name"] = ' '
+			}
+		},
+		["yaml"] = {
+			icons = {
+				["mapping-name"] = ' ',
+				["sequence-name"] = ' ',
+				["null-name"] = '[] ',
+				["boolean-name"] = 'ﰰﰴ ',
+				["integer-name"] = '# ',
+				["float-name"] = ' ',
+				["string-name"] = ' '
+			}
+		},
+		["yang"] = {
+			icons = {
+				["module-name"] = " ",
+				["augment-path"] = " ",
+				["container-name"] = " ",
+				["grouping-name"] = " ",
+				["typedef-name"] = " ",
+				["identity-name"] = " ",
+				["list-name"] = "﬘ ",
+				["leaf-list-name"] = " ",
+				["leaf-name"] = " ",
+				["action-name"] = " ",
+			}
+		},
+
+		-- Disable for particular languages
+		-- ["bash"] = false, -- disables nvim-gps for bash
+		-- ["go"] = false,   -- disables nvim-gps for golang
+
+		-- Override default setting for particular languages
+		-- ["ruby"] = {
+		--	separator = '|', -- Overrides default separator with '|'
+		--	icons = {
+		--		-- Default icons not specified in the lang config
+		--		-- will fallback to the default value
+		--		-- "container-name" will fallback to default because it's not set
+		--		["function-name"] = '',    -- to ensure empty values, set an empty string
+		--		["tag-name"] = ''
+		--		["class-name"] = '::',
+		--		["method-name"] = '#',
+		--	}
+		--}
+	},
+
+	separator = ' > ',
+
+	-- limit for amount of context shown
+	-- 0 means no limit
+	depth = 0,
+
+	-- indicator used when context hits depth limit
+	depth_limit_indicator = ".."
+})
+EOF
+""" }}}
+
+""" {{{ lsp
+lua <<EOF
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.settings({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+EOF
+""" }}}
